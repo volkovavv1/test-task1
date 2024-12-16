@@ -6,9 +6,13 @@ $dbh = new sdbh();
 <head>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           crossorigin="anonymous">
+    <!-- Подключение виджета air-datepicker -->
+    <link href="https://cdn.jsdelivr.net/npm/air-datepicker@3.5.3/air-datepicker.min.css" rel="stylesheet">
     <link href="assets/css/style.css" rel="stylesheet"/>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
             crossorigin="anonymous"></script>
+    <!-- Подключение виджета air-datepicker -->
+    <script src="https://cdn.jsdelivr.net/npm/air-datepicker@3.5.3/air-datepicker.min.js"></script>
 </head>
 <body>
 <div class="container">
@@ -37,8 +41,12 @@ $dbh = new sdbh();
                     </select>
                 <?php } ?>
 
-                <label for="customRange1" class="form-label" id="count">Количество дней:</label>
-                <input type="number" name="days" class="form-control" id="customRange1" min="1" max="30">
+                <!-- Добавлены новые инпуты для двух дат - начала и окончания аренды, вместо одного для количества дней аренды -->
+                <label for="customRange1" class="form-label" id="count1">Дата начала аренды:</label>
+                <input type="text" name="first_day" class="form-control" id="customRange1" readonly>
+
+                <label for="customRange2" class="form-label" id="count2" >Дата окончания аренды:</label>
+                <input type="text" name="last_day" class="form-control" id="customRange2" readonly>
 
                 <?php $services = unserialize($dbh->mselect_rows('a25_settings', ['set_key' => 'services'], 0, 1, 'id')[0]['set_value']);
                 if (is_array($services)) {
@@ -85,5 +93,12 @@ $dbh = new sdbh();
         });
     });
 </script>
+
+<script>
+    // Подключение календаря к созданным инпутам
+    new AirDatepicker('#customRange1');
+    new AirDatepicker('#customRange2');
+</script>
+
 </body>
 </html>

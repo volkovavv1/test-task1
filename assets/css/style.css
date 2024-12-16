@@ -9,3 +9,8 @@ h1{
 .row-header{
     margin: 50px 0;
 }
+/*Убираем стиль, измененный атрибутом redonly */
+.form-control[readonly] {
+    background-color: #fff; 
+    opacity: inherit;
+}
